@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # Service cho ứng dụng Spring Boot
+  app:
+    build: . # Build Docker image từ Dockerfile trong thư mục hiện tại
+    ports:
+      - "8088:8088" # Map cổng 8080 của host với cổng 8080 của container
+    environment:
+
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/user_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: tien123
+      JWT_SECRET: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
+    depends_on:
+      - db # Đảm bảo service 'db' khởi động trước service 'app'
+    volumes:
+      - ./logs:/app/logs
+
+  db:
+    image: mysql:8.0.42
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: tien123
+      MYSQL_DATABASE: user_db
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

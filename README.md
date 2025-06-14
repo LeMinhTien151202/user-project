@@ -43,3 +43,11 @@ Dự án REST API quản lý người dùng với các tính năng:
 ```bash
 git clone https://github.com/your-username/user-management-api.git
 cd user-management-api
+
+### 2. Build và chạy ứng dụng với Docker
+```bash
+# Bước 1: Đóng gói ứng dụng (build file JAR)
+mvn clean package -DskipTests
+
+# Bước 2: Khởi động toàn bộ hệ thống bằng Docker Compose
+docker-compose up --build
